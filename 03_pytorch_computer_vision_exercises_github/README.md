@@ -1,46 +1,51 @@
 # PyTorch Computer Vision Exercises
 
-Hands-on PyTorch computer vision exercises using MNIST and FashionMNIST, covering CNNs, training/evaluation, predictions, confusion matrices, and model error analysis.
+Hands-on PyTorch computer vision practice with **MNIST** and **FashionMNIST**, focused on building, training, and evaluating convolutional neural networks.
 
-## Exercises
+## Highlights
 
-## 1. What are 3 areas in industry where computer vision is currently being used?
+- Built CNN classifiers with `nn.Conv2d`, `ReLU`, `MaxPool2d`, `Flatten`, and `Linear`
+- Used `DataLoader` with mini-batches of 32
+- Trained with `CrossEntropyLoss` and SGD
+- Evaluated models with accuracy, prediction visualizations, and a confusion matrix
+- Explored how different `kernel_size` values change convolution output shapes
+- Analyzed misclassified FashionMNIST samples and visually similar classes
 
-## 2. Search "what is overfitting in machine learning" and write down a sentence about what you find.
+## Results
 
-## 3. Search "ways to prevent overfitting in machine learning", write down 3 of the things you find and a sentence about each. 
-> **Note:** There are lots of these, so don't worry too much about all of them; just pick 3 and start with those.
+### MNIST CNN
+- Final train accuracy: **98.69%**
+- Final test accuracy: **98.09%**
+- Best test accuracy during training: **98.58%**
 
-## 4. Spend 20 minutes reading and clicking through the [CNN Explainer website](https://poloclub.github.io/cnn-explainer/).
+### FashionMNIST CNN
+- Final train accuracy: **91.10%**
+- Final test accuracy: **89.40%**
+- Best test accuracy during training: **89.72%**
 
-* Upload your own example image using the "upload" button on the website and see what happens in each layer of a CNN as your image passes through it.
+## Model Notes
 
-## 5. Load the [`torchvision.datasets.MNIST()`](https://pytorch.org/vision/stable/generated/torchvision.datasets.MNIST.html#torchvision.datasets.MNIST) train and test datasets.
+- MNIST input shape: `1 × 28 × 28`
+- FashionMNIST input shape: `1 × 28 × 28`
+- Both tasks contain 10 classes
+- FashionMNIST model uses two convolution blocks followed by a linear classifier
+- Some FashionMNIST mistakes occur between visually similar classes such as **Shirt** and **T-shirt/top**
 
-## 6. Visualize at least 5 different samples of the MNIST training dataset.
+## Kernel Size Experiment
 
-## 7. Turn the MNIST train and test datasets into dataloaders using `torch.utils.data.DataLoader`, set the `batch_size=32`.
+For a random input tensor of shape `[1, 3, 64, 64]` with no padding:
 
-## 8. Recreate `model_2` used in notebook 03 (the same model from the [CNN Explainer website](https://poloclub.github.io/cnn-explainer/), also known as TinyVGG) capable of fitting on the MNIST dataset.
+- `kernel_size=3` → output spatial size `62 × 62`
+- `kernel_size=5` → output spatial size `60 × 60`
+- `kernel_size=7` → output spatial size `58 × 58`
 
-## 9. Train the model you built in exercise 8 for 5 epochs on CPU and GPU and see how long it takes on each.
-
-## 10. Make predictions using your trained model and visualize at least 5 of them, comparing the prediction to the target label.
-
-## 11. Plot a confusion matrix comparing your model's predictions to the truth labels.
-
-## 12. Create a random tensor of shape `[1, 3, 64, 64]` and pass it through a `nn.Conv2d()` layer with various hyperparameter settings (these can be any settings you choose), what do you notice if the `kernel_size` parameter goes up and down?
-
-## 13. Use a model similar to the trained `model_2` from notebook 03 to make predictions on the test [`torchvision.datasets.FashionMNIST`](https://pytorch.org/vision/main/generated/torchvision.datasets.FashionMNIST.html) dataset. 
-* Then plot some predictions where the model was wrong alongside what the label of the image should've been. 
-* After visualizing these predictions, do you think it's more of a modelling error or a data error? 
-* As in, could the model do better, or are the labels of the data too close to each other (e.g., a "Shirt" label is too close to "T-shirt/top")?
+Larger kernels cover a wider local region and, without padding, reduce the output height and width more.
 
 ## Files
 
-- `03_pytorch_computer_vision_exercises.ipynb` — completed exercise notebook
-- `requirements.txt` — Python dependencies
-- `.gitignore` — files excluded from Git tracking
+- `03_pytorch_computer_vision_exercises.ipynb` — completed notebook
+- `requirements.txt` — dependencies
+- `.gitignore` — ignored local files and downloaded datasets
 
 ## Setup
 
@@ -49,5 +54,3 @@ pip install -r requirements.txt
 ```
 
 Open the notebook in Jupyter or VS Code and run the cells in order.
-
-MNIST and FashionMNIST are downloaded automatically by `torchvision` when the corresponding dataset cells are run.
